@@ -15,7 +15,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: '#C8E6C9',
+        tabBarInactiveTintColor: '#fff',
         headerShown: false,
         tabBarButton: HapticTab,
         // tabBarBackground: TabBarBackground,
@@ -39,24 +39,31 @@ export default function TabLayout() {
         },
       }}>
       <Tabs.Screen
+        name="index"
+        options={{
+          title: 'NutriNest AI',
+          tabBarIcon: () => <IconSymbol size={28} name="sparkles" color="#fff" />,
+        }}
+      />
+      <Tabs.Screen
         name="meals"
         options={{
           title: 'Meals',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="fork.knife" color={color} />,
+          tabBarIcon: () => <IconSymbol size={28} name="fork.knife" color="#fff" />,
         }}
       />
       <Tabs.Screen
         name="planner"
         options={{
           title: 'Planner',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="calendar" color={color} />,
+          tabBarIcon: () => <IconSymbol size={28} name="calendar" color="#fff" />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+          tabBarIcon: () => <IconSymbol size={28} name="person.fill" color="#fff" />,
         }}
       />
     </Tabs>
