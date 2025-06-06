@@ -1,0 +1,98 @@
+{
+  "meals": [
+    {
+      "id": "1",
+      "name": "Grilled Chicken Salad",
+      "description": "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette",
+      "calories": 350,
+      "protein": 35,
+      "carbs": 15,
+      "fats": 18,
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+      "category": "Lunch",
+      "prepTime": "15 mins",
+      "ingredients": [
+        "Chicken breast",
+        "Mixed greens",
+        "Cherry tomatoes",
+        "Balsamic vinaigrette",
+        "Olive oil"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Salmon with Quinoa",
+      "description": "Baked salmon fillet with fluffy quinoa and steamed vegetables",
+      "calories": 420,
+      "protein": 38,
+      "carbs": 32,
+      "fats": 22,
+      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2",
+      "category": "Dinner",
+      "prepTime": "25 mins",
+      "ingredients": [
+        "Salmon fillet",
+        "Quinoa",
+        "Broccoli",
+        "Carrots",
+        "Lemon"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Greek Yogurt Parfait",
+      "description": "Greek yogurt layered with fresh berries and granola",
+      "calories": 280,
+      "protein": 20,
+      "carbs": 35,
+      "fats": 8,
+      "image": "https://images.unsplash.com/photo-1488477181946-6428a848b919",
+      "category": "Breakfast",
+      "prepTime": "10 mins",
+      "ingredients": [
+        "Greek yogurt",
+        "Mixed berries",
+        "Granola",
+        "Honey"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Vegetable Stir Fry",
+      "description": "Colorful vegetables stir-fried with tofu in a savory sauce",
+      "calories": 320,
+      "protein": 18,
+      "carbs": 42,
+      "fats": 12,
+      "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+      "category": "Lunch",
+      "prepTime": "20 mins",
+      "ingredients": [
+        "Tofu",
+        "Broccoli",
+        "Bell peppers",
+        "Carrots",
+        "Soy sauce"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Protein Smoothie Bowl",
+      "description": "Thick smoothie bowl topped with fruits, nuts, and seeds",
+      "calories": 380,
+      "protein": 25,
+      "carbs": 45,
+      "fats": 15,
+      "image": "https://images.unsplash.com/photo-1626074356565-5173f1e2e8e3",
+      "category": "Breakfast",
+      "prepTime": "15 mins",
+      "ingredients": [
+        "Banana",
+        "Protein powder",
+        "Almond milk",
+        "Mixed berries",
+        "Chia seeds"
+      ]
+    }
+  ]
+} 
