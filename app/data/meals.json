@@ -1,98 +1,503 @@
 {
-  "meals": [
-    {
-      "id": "1",
-      "name": "Grilled Chicken Salad",
-      "description": "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette",
-      "calories": 350,
-      "protein": 35,
-      "carbs": 15,
-      "fats": 18,
-      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
-      "category": "Lunch",
-      "prepTime": "15 mins",
-      "ingredients": [
-        "Chicken breast",
-        "Mixed greens",
-        "Cherry tomatoes",
-        "Balsamic vinaigrette",
-        "Olive oil"
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Salmon with Quinoa",
-      "description": "Baked salmon fillet with fluffy quinoa and steamed vegetables",
-      "calories": 420,
-      "protein": 38,
-      "carbs": 32,
-      "fats": 22,
-      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2",
-      "category": "Dinner",
-      "prepTime": "25 mins",
-      "ingredients": [
-        "Salmon fillet",
-        "Quinoa",
-        "Broccoli",
-        "Carrots",
-        "Lemon"
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Greek Yogurt Parfait",
-      "description": "Greek yogurt layered with fresh berries and granola",
-      "calories": 280,
-      "protein": 20,
-      "carbs": 35,
-      "fats": 8,
-      "image": "https://images.unsplash.com/photo-1488477181946-6428a848b919",
-      "category": "Breakfast",
-      "prepTime": "10 mins",
-      "ingredients": [
-        "Greek yogurt",
-        "Mixed berries",
-        "Granola",
-        "Honey"
-      ]
-    },
-    {
-      "id": "4",
-      "name": "Vegetable Stir Fry",
-      "description": "Colorful vegetables stir-fried with tofu in a savory sauce",
-      "calories": 320,
-      "protein": 18,
-      "carbs": 42,
-      "fats": 12,
-      "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
-      "category": "Lunch",
-      "prepTime": "20 mins",
-      "ingredients": [
-        "Tofu",
-        "Broccoli",
-        "Bell peppers",
-        "Carrots",
-        "Soy sauce"
-      ]
-    },
-    {
-      "id": "5",
-      "name": "Protein Smoothie Bowl",
-      "description": "Thick smoothie bowl topped with fruits, nuts, and seeds",
-      "calories": 380,
-      "protein": 25,
-      "carbs": 45,
-      "fats": 15,
-      "image": "https://images.unsplash.com/photo-1626074356565-5173f1e2e8e3",
-      "category": "Breakfast",
-      "prepTime": "15 mins",
-      "ingredients": [
-        "Banana",
-        "Protein powder",
-        "Almond milk",
-        "Mixed berries",
-        "Chia seeds"
-      ]
-    }
-  ]
-} 
+    "meals": [
+      {
+        "id": "1",
+        "name": "Grilled Chicken Salad",
+        "description": "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette",
+        "calories": 350,
+        "protein": 35,
+        "carbs": 15,
+        "fats": 18,
+        "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+        "category": "Lunch",
+        "prepTime": "15 mins",
+        "ingredients": [
+          "Chicken breast",
+          "Mixed greens",
+          "Cherry tomatoes",
+          "Balsamic vinaigrette",
+          "Olive oil"
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Salmon with Quinoa",
+        "description": "Baked salmon fillet with fluffy quinoa and steamed vegetables",
+        "calories": 420,
+        "protein": 38,
+        "carbs": 32,
+        "fats": 22,
+        "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2",
+        "category": "Dinner",
+        "prepTime": "25 mins",
+        "ingredients": [
+          "Salmon fillet",
+          "Quinoa",
+          "Broccoli",
+          "Carrots",
+          "Lemon"
+        ]
+      },
+      {
+        "id": "3",
+        "name": "Greek Yogurt Parfait",
+        "description": "Greek yogurt layered with fresh berries and granola",
+        "calories": 280,
+        "protein": 20,
+        "carbs": 35,
+        "fats": 8,
+        "image": "https://plus.unsplash.com/premium_photo-1663855531713-836d43edde85?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "category": "Breakfast",
+        "prepTime": "10 mins",
+        "ingredients": [
+          "Greek yogurt",
+          "Mixed berries",
+          "Granola",
+          "Honey"
+        ]
+      },
+      {
+        "id": "4",
+        "name": "Vegetable Stir Fry",
+        "description": "Colorful vegetables stir-fried with tofu in a savory sauce",
+        "calories": 320,
+        "protein": 18,
+        "carbs": 42,
+        "fats": 12,
+        "image": "https://plus.unsplash.com/premium_photo-1664478238082-3df93e48c491?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8VmVnZXRhYmxlJTIwU3RpciUyMEZyeXxlbnwwfHwwfHx8MA%3D%3D",
+        "category": "Lunch",
+        "prepTime": "20 mins",
+        "ingredients": [
+          "Tofu",
+          "Broccoli",
+          "Bell peppers",
+          "Carrots",
+          "Soy sauce"
+        ]
+      },
+      {
+        "id": "5",
+        "name": "Protein Smoothie Bowl",
+        "description": "Thick smoothie bowl topped with fruits, nuts, and seeds",
+        "calories": 380,
+        "protein": 25,
+        "carbs": 45,
+        "fats": 15,
+        "image": "https://images.unsplash.com/photo-1734038990784-209ad53db7b5?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8UHJvdGVpbiUyMFNtb290aGllJTIwQm93bHxlbnwwfHwwfHx8MA%3D%3D",
+        "category": "Breakfast",
+        "prepTime": "15 mins",
+        "ingredients": [
+          "Banana",
+          "Protein powder",
+          "Almond milk",
+          "Mixed berries",
+          "Chia seeds"
+        ]
+      },
+      {
+        "id": "11",
+        "name": "Poha",
+        "description": "Flattened rice sautéed with onions, mustard seeds, turmeric, peas, and peanuts",
+        "calories": 250,
+        "protein": 6,
+        "carbs": 38,
+        "fats": 9,
+        "image": "https://media.istockphoto.com/id/1294024658/photo/indian-street-food-poha.jpg?s=612x612&w=is&k=20&c=SU1uIe7lXotH-sKhxtnRLbzhPw-mS-lMFGGeaVRUkW4=",
+        "category": "Breakfast",
+        "prepTime": "15 mins",
+        "ingredients": [
+          "Poha (flattened rice)",
+          "Onion",
+          "Peas",
+          "Mustard seeds",
+          "Peanuts",
+          "Turmeric"
+        ]
+      },
+      {
+        "id": "12",
+        "name": "Vegetable Khichdi",
+        "description": "A comforting mix of rice and lentils cooked with assorted vegetables and spices",
+        "calories": 310,
+        "protein": 10,
+        "carbs": 45,
+        "fats": 8,
+        "image": "https://media.istockphoto.com/id/1254225707/photo/dalia-khichdi-or-daliya-khichadi-is-a-delicious-one-pot-meal-made-from-broken-wheat-and.jpg?s=612x612&w=is&k=20&c=belk8jZ9D5GtcJsuoGVfGrfzMgr7E_O-n8oPajyHdvE=",
+        "category": "Lunch",
+        "prepTime": "25 mins",
+        "ingredients": [
+          "Rice",
+          "Moong dal",
+          "Carrots",
+          "Beans",
+          "Cumin seeds",
+          "Ginger"
+        ]
+      },
+      {
+        "id": "13",
+        "name": "Chapati with Mixed Veg",
+        "description": "Whole wheat chapatis served with seasonal mixed vegetable curry",
+        "calories": 360,
+        "protein": 9,
+        "carbs": 50,
+        "fats": 12,
+        "image": "https://media.istockphoto.com/id/2168835252/photo/vegetarian-indian-thali-indian-home-food-with-lentil-dal-paneer-roti-rice-curd-and-chutney.jpg?s=612x612&w=is&k=20&c=cPpsvvkFkB6KzNfrPNUtQe_LBJT5s61Nlh-SjWzEtFE=",
+        "category": "Dinner",
+        "prepTime": "30 mins",
+        "ingredients": [
+          "Whole wheat flour",
+          "Potato",
+          "Carrot",
+          "Cauliflower",
+          "Tomato",
+          "Spices"
+        ]
+      },
+      {
+        "id": "14",
+        "name": "Upma",
+        "description": "South Indian semolina breakfast cooked with mustard seeds, curry leaves, and vegetables",
+        "calories": 270,
+        "protein": 6,
+        "carbs": 35,
+        "fats": 10,
+        "image": "https://media.istockphoto.com/id/1488737992/photo/upma-recipe-suji-ka-upma-rava-upma-with-red-and-coconut-chutney.webp?a=1&b=1&s=612x612&w=0&k=20&c=1zjO85hiNAi55VhDbcISJjm2291mEw_pszwU1QuJKzs",
+        "category": "Breakfast",
+        "prepTime": "20 mins",
+        "ingredients": [
+          "Semolina (rava)",
+          "Onion",
+          "Green chili",
+          "Mustard seeds",
+          "Curry leaves",
+          "Carrot"
+        ]
+      },
+      {
+        "id": "15",
+        "name": "Rajma Chawal",
+        "description": "Red kidney beans cooked in a spiced gravy served with steamed rice",
+        "calories": 400,
+        "protein": 14,
+        "carbs": 50,
+        "fats": 12,
+        "image": "https://media.istockphoto.com/id/1497379904/photo/rajma-masala-is-a-delicious-gravy-made-by-cooking-red-beans-with-onion-tomatoes-and-basic.webp?a=1&b=1&s=612x612&w=0&k=20&c=aml2YV0LdbUYJvLDNsRIaQKXakYcPyG69ma3PenNA8Q=",
+        "category": "Lunch",
+        "prepTime": "35 mins",
+        "ingredients": [
+          "Rajma (kidney beans)",
+          "Rice",
+          "Tomatoes",
+          "Onion",
+          "Garlic",
+          "Spices"
+        ]
+      } ,
+      {
+    "id": "16",
+    "name": "Oats and Boiled Egg Combo",
+    "description": "High-fiber oats porridge with skimmed milk and 2 boiled eggs for a protein-rich start to your day",
+    "calories": 280,
+    "protein": 18,
+    "carbs": 30,
+    "fats": 9,
+    "image": "https://media.istockphoto.com/id/1445623982/photo/oatmeal-served-with-salty-egg.webp?a=1&b=1&s=612x612&w=0&k=20&c=LpNPlQR7PtaBqVNBUNixW89-4M9iaTX1wvAO00rSYDQ=",
+    "category": "Breakfast",
+    "prepTime": "15 mins",
+    "ingredients": [
+      "Oats",
+      "Skimmed milk",
+      "Boiled eggs",
+      "Cinnamon",
+      "Salt"
+    ]
+  },
+  {
+    "id": "17",
+    "name": "Paneer Bhurji with Multigrain Roti",
+    "description": "Scrambled paneer cooked with veggies and served with a fiber-rich multigrain roti",
+    "calories": 420,
+    "protein": 22,
+    "carbs": 32,
+    "fats": 20,
+    "image": "https://media.istockphoto.com/id/2065553568/photo/anda-masala-bhurji-or-spicy-indian-scrambled-eggs-with-bread-or-bun-pav-a-popular-street-food.webp?a=1&b=1&s=612x612&w=0&k=20&c=Lqo9Tk3OwQpuhnWS9uPMiIgb1wLQICj-T9eBDLstgbI=",
+    "category": "Lunch",
+    "prepTime": "25 mins",
+    "ingredients": [
+      "Paneer",
+      "Capsicum",
+      "Onion",
+      "Tomato",
+      "Multigrain flour"
+    ]
+  },
+  {
+    "id": "18",
+    "name": "Banana Peanut Butter Shake",
+    "description": "Calorie-dense and protein-rich shake made with banana, peanut butter, and oats",
+    "calories": 510,
+    "protein": 20,
+    "carbs": 45,
+    "fats": 30,
+    "image": "https://media.istockphoto.com/id/522334972/photo/peanut-butter-banana-oat-smoothie-on-rustic-wood-with-scattered-ingredients.webp?a=1&b=1&s=612x612&w=0&k=20&c=g00a14KXYRh6vpQi5ZrGNYOpxpLYRNR_MG5BVGkP4vc=",
+    "category": "Breakfast",
+    "prepTime": "10 mins",
+    "ingredients": [
+      "Banana",
+      "Peanut butter",
+      "Milk",
+      "Honey",
+      "Oats"
+    ]
+  },
+  {
+    "id": "19",
+    "name": "Grilled Veggie Bowl",
+    "description": "Low-calorie grilled vegetables with chickpeas and lemon dressing",
+    "calories": 290,
+    "protein": 15,
+    "carbs": 28,
+    "fats": 10,
+    "image": "https://images.unsplash.com/photo-1744116432674-e6ff2b6d9544?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8R3JpbGxlZCUyMFZlZ2dpZSUyMEJvd2x8ZW58MHx8MHx8fDA%3D",
+    "category": "Dinner",
+    "prepTime": "20 mins",
+    "ingredients": [
+      "Zucchini",
+      "Bell peppers",
+      "Chickpeas",
+      "Spinach",
+      "Lemon"
+    ]
+  },
+  {
+    "id": "20",
+    "name": "Brown Rice and Egg Curry",
+    "description": "Balanced plate with complex carbs and protein for steady energy",
+    "calories": 450,
+    "protein": 22,
+    "carbs": 48,
+    "fats": 16,
+    "image": "https://images.unsplash.com/photo-1694953593181-6ce423500712?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QnJvd24lMjBSaWNlJTIwYW5kJTIwRWdnJTIwQ3Vycnl8ZW58MHx8MHx8fDA%3D",
+    "category": "Lunch",
+    "prepTime": "30 mins",
+    "ingredients": [
+      "Brown rice",
+      "Boiled eggs",
+      "Onion",
+      "Tomato",
+      "Spices"
+    ]
+  },
+  {
+    "id": "21",
+    "name": "Paneer Paratha with Curd",
+    "description": "High-calorie paneer-stuffed paratha served with curd",
+    "calories": 540,
+    "protein": 24,
+    "carbs": 50,
+    "fats": 28,
+    "image": "https://media.istockphoto.com/id/1441701265/photo/great-indian-thali-table-top-spin.jpg?s=612x612&w=is&k=20&c=YtgWIP3EweOfFcAVq7_lRHy3SiUwfldwBBTtEKvkdzM=",
+    "category": "Dinner",
+    "prepTime": "30 mins",
+    "ingredients": [
+      "Wheat flour",
+      "Paneer",
+      "Coriander",
+      "Curd",
+      "Spices"
+    ]
+  } ,
+  {
+    "id": "22",
+    "name": "Moong Dal Chilla",
+    "description": "Savory pancakes made from ground moong dal and spices, served with mint chutney",
+    "calories": 240,
+    "protein": 14,
+    "carbs": 28,
+    "fats": 8,
+    "image": "https://media.istockphoto.com/id/1465606833/photo/indian-food-moong-dal-chilla-is-ready-to-eat.webp?a=1&b=1&s=612x612&w=0&k=20&c=veynS41oMdDoZaBp6wUr_z7f0DnMOFuDKLCD5s_JTxQ=",
+    "category": "Breakfast",
+    "prepTime": "20 mins",
+    "ingredients": [
+      "Moong dal",
+      "Green chili",
+      "Ginger",
+      "Coriander",
+      "Salt"
+    ]
+  },
+  {
+    "id": "23",
+    "name": "Masala Daliya",
+    "description": "Fiber-rich broken wheat cooked with vegetables and mild spices",
+    "calories": 280,
+    "protein": 10,
+    "carbs": 38,
+    "fats": 9,
+    "image": "https://media.istockphoto.com/id/1293575189/photo/indian-food-daal-khichadi-also-known-as-daliya-khichuri-or-masala-dal-khichdi-loaded-with.webp?a=1&b=1&s=612x612&w=0&k=20&c=7TH9bu6HvstCAsYg9flQtfhsclTrqN9ktSDMf3uik38=",
+    "category": "Breakfast",
+    "prepTime": "20 mins",
+    "ingredients": [
+      "Daliya (broken wheat)",
+      "Carrot",
+      "Beans",
+      "Cumin seeds",
+      "Green chili"
+    ]
+  },
+  {
+    "id": "24",
+    "name": "Curd Rice",
+    "description": "Simple and cooling South Indian dish made with rice and yogurt",
+    "calories": 300,
+    "protein": 9,
+    "carbs": 42,
+    "fats": 10,
+    "image": "https://media.istockphoto.com/id/2150324465/photo/curd-rice.webp?a=1&b=1&s=612x612&w=0&k=20&c=ltQVJZymnVZns6zBlZs3qGPDfTV47KzoHF3RmQMJL7U=",
+    "category": "Lunch",
+    "prepTime": "15 mins",
+    "ingredients": [
+      "Cooked rice",
+      "Curd",
+      "Mustard seeds",
+      "Curry leaves",
+      "Coriander"
+    ]
+  },
+  {
+    "id": "25",
+    "name": "Chana Masala with Rice",
+    "description": "Boiled chickpeas in a spicy tomato gravy served with steamed rice",
+    "calories": 420,
+    "protein": 16,
+    "carbs": 48,
+    "fats": 15,
+    "image": "https://media.istockphoto.com/id/1365127946/photo/spicy-masala-chickpea-with-basmati-rice-indian-vegan-plant-based.webp?a=1&b=1&s=612x612&w=0&k=20&c=tbD35_fVZGhwZaRq0JcAAxQiJiR8d-qfQ62P-m0OvHc=",
+    "category": "Lunch",
+    "prepTime": "30 mins",
+    "ingredients": [
+      "Chickpeas",
+      "Tomato",
+      "Onion",
+      "Spices",
+      "Rice"
+    ]
+  },
+  {
+    "id": "26",
+    "name": "Roti with Palak Paneer",
+    "description": "Whole wheat roti served with iron-rich spinach paneer curry",
+    "calories": 430,
+    "protein": 20,
+    "carbs": 40,
+    "fats": 18,
+    "image": "https://media.istockphoto.com/id/2190629303/photo/palak-paratha-is-a-soft-spinach-filled-flatbread-served-with-creamy-spiced-palak-paneera.webp?a=1&b=1&s=612x612&w=0&k=20&c=K9MxRuS5bPIyyaacaF9Pb-hk4XJEr3gN1_K43mlDD-I=",
+    "category": "Dinner",
+    "prepTime": "35 mins",
+    "ingredients": [
+      "Spinach",
+      "Paneer",
+      "Garlic",
+      "Ginger",
+      "Wheat flour"
+    ]
+  },
+  {
+    "id": "27",
+    "name": "Vegetable Pulao",
+    "description": "Aromatic basmati rice cooked with seasonal vegetables and spices",
+    "calories": 360,
+    "protein": 9,
+    "carbs": 50,
+    "fats": 12,
+    "image": "https://media.istockphoto.com/id/179085494/photo/indian-biryani.webp?a=1&b=1&s=612x612&w=0&k=20&c=zD6tz_tDHPEbH7b6xNVW4cxMSGfr-9ZoY2Xb8eN6njw=",
+    "category": "Lunch",
+    "prepTime": "25 mins",
+    "ingredients": [
+      "Basmati rice",
+      "Green peas",
+      "Carrot",
+      "Cloves",
+      "Bay leaf"
+    ]
+  },
+  {
+    "id": "28",
+    "name": "Besan Cheela with Curd",
+    "description": "Gram flour pancakes served with fresh curd for a light and protein-packed meal",
+    "calories": 270,
+    "protein": 12,
+    "carbs": 25,
+    "fats": 11,
+    "image": "https://media.istockphoto.com/id/1223622401/photo/besan-squeals.webp?a=1&b=1&s=612x612&w=0&k=20&c=RNxauLu8c9PNKgAfleRAPn0sjbQqaZ3FD5WdHASLhg4=",
+    "category": "Breakfast",
+    "prepTime": "15 mins",
+    "ingredients": [
+      "Besan (gram flour)",
+      "Onion",
+      "Coriander",
+      "Green chili",
+      "Curd"
+    ]
+  },
+  {
+    "id": "29",
+    "name": "Idli with Coconut Chutney",
+    "description": "Steamed rice cakes served with homemade coconut chutney",
+    "calories": 310,
+    "protein": 9,
+    "carbs": 40,
+    "fats": 10,
+    "image": "https://media.istockphoto.com/id/1024549454/photo/idly-sambar-or-idli-with-sambhar-and-green-red-chutney-popular-south-indian-breakfast.webp?a=1&b=1&s=612x612&w=0&k=20&c=JGYk6zJNS6bneptDScV-2P8PrH2EirPA1qH3KKW8_9w=",
+    "category": "Breakfast",
+    "prepTime": "20 mins",
+    "ingredients": [
+      "Rice",
+      "Urad dal",
+      "Coconut",
+      "Mustard seeds",
+      "Curry leaves"
+    ]
+  },
+  {
+    "id": "30",
+    "name": "Stuffed Bhindi with Roti",
+    "description": "Ladyfinger stuffed with spices and pan-fried, served with roti",
+    "calories": 390,
+    "protein": 10,
+    "carbs": 38,
+    "fats": 16,
+    "image": "https://media.istockphoto.com/id/1208465610/photo/bhindi-masala-or-stuffed-bhindi-or-okra-an-indian-vegetable-on-a-plate-with-copy-space.webp?a=1&b=1&s=612x612&w=0&k=20&c=_gpDwjrnT2QdMTaERbyuGAZ9l5HV8ebJCnIeGPMNWK0=",
+    "category": "Dinner",
+    "prepTime": "30 mins",
+    "ingredients": [
+      "Bhindi (ladyfinger)",
+      "Spices",
+      "Oil",
+      "Wheat flour",
+      "Onion"
+    ]
+  },
+  {
+    "id": "31",
+    "name": "Vegetable Soup with Toast",
+    "description": "Light and hearty vegetable soup served with whole grain toast",
+    "calories": 220,
+    "protein": 7,
+    "carbs": 30,
+    "fats": 6,
+    "image": "https://media.istockphoto.com/id/1367822097/photo/a-healthy-and-nutritious-breakfast-of-toast-and-soup.webp?a=1&b=1&s=612x612&w=0&k=20&c=PhDHi2-O3ndml2-8Hky9pnDzdcu8DywkhVTWuDUtH5Q=",
+    "category": "Dinner",
+    "prepTime": "20 mins",
+    "ingredients": [
+      "Carrot",
+      "Beans",
+      "Tomato",
+      "Onion",
+      "Whole grain bread"
+    ]
+  }
+    ]
+  }
+  
