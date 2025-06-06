@@ -239,61 +239,60 @@ export default function MealsScreen() {
         <Text style={styles.headerTitle}>Meal Plans</Text>
         <Text style={styles.headerSubtitle}>Discover and save your favorite meals</Text>
       </View>
-
-      <View style={styles.contentContainer}>
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          style={styles.categoriesContainer}
-        >
-          {categories.map((category) => (
-            <TouchableOpacity
-              key={category}
-              style={[
-                styles.categoryButton,
-                selectedCategory === category && styles.selectedCategory
-              ]}
-              onPress={() => setSelectedCategory(category)}
-            >
-              <Text style={[
-                styles.categoryText,
-                selectedCategory === category && styles.selectedCategoryText
-              ]}>
-                {category}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        <ScrollView style={styles.mealsContainer}>
-          {filteredMeals.map((meal: Meal) => (
-            <View key={meal.id} style={styles.mealCard}>
-              <Image
-                source={{ uri: meal.image }}
-                style={styles.mealImage}
-              />
-              <View style={styles.mealInfo}>
-                <View style={styles.mealHeader}>
-                  <Text style={styles.mealName}>{meal.name}</Text>
-                  <Text style={styles.mealCategory}>{meal.category}</Text>
-                </View>
-                
-                <Text style={styles.mealDescription}>{meal.description}</Text>
-                
-                <View style={styles.macrosContainer}>
-                  <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
-                  <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
-                  <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
-                </View>
-
-                <View style={styles.mealFooter}>
-                  <Text style={styles.calories}>{meal.calories} calories</Text>
-                  <Text style={styles.prepTime}>{meal.prepTime}</Text>
+      <View style={styles.flexContainer}>
+        <View style={styles.categoriesWrapper}>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            style={styles.categoriesContainer}
+          >
+            {categories.map((category) => (
+              <TouchableOpacity
+                key={category}
+                style={[
+                  styles.categoryButton,
+                  selectedCategory === category && styles.selectedCategory
+                ]}
+                onPress={() => setSelectedCategory(category)}
+              >
+                <Text style={[
+                  styles.categoryText,
+                  selectedCategory === category && styles.selectedCategoryText
+                ]}>
+                  {category}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+        <View style={styles.mealsWrapper}>
+          <ScrollView style={styles.mealsContainer}>
+            {filteredMeals.map((meal: Meal) => (
+              <View key={meal.id} style={styles.mealCard}>
+                <Image
+                  source={{ uri: meal.image }}
+                  style={styles.mealImage}
+                />
+                <View style={styles.mealInfo}>
+                  <View style={styles.mealHeader}>
+                    <Text style={styles.mealName}>{meal.name}</Text>
+                    <Text style={styles.mealCategory}>{meal.category}</Text>
+                  </View>
+                  <Text style={styles.mealDescription}>{meal.description}</Text>
+                  <View style={styles.macrosContainer}>
+                    <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
+                    <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
+                    <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
+                  </View>
+                  <View style={styles.mealFooter}>
+                    <Text style={styles.calories}>{meal.calories} calories</Text>
+                    <Text style={styles.prepTime}>{meal.prepTime}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          ))}
-        </ScrollView>
+            ))}
+          </ScrollView>
+        </View>
       </View>
     </View>
   );
@@ -346,7 +345,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   categoriesContainer: {
-    marginBottom: 16,
+    marginBottom: 0,
+    alignSelf: 'center',
   },
   categoryButton: {
     paddingHorizontal: 20,
@@ -493,6 +493,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: '600',
+  },
+  flexContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  categoriesWrapper: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mealsWrapper: {
+    flex: 8,
   },
 }); 
  

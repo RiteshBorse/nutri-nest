@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Link } from 'expo-router';
 import { useState } from 'react';
 
@@ -17,7 +17,7 @@ export default function SignupScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
       <Text style={styles.subtitle}>Join NutriNest Today</Text>
-      
+      <Image source={require('../../assets/images/icon.png')} style={styles.logo} />
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -121,5 +121,12 @@ const styles = StyleSheet.create({
     color: '#2E7D32',
     fontSize: 16,
     fontWeight: '600',
+  },
+  logo: {
+    width: 180,
+    height: 180,
+    alignSelf: 'center',
+    marginBottom: 24,
+    marginTop: 8,
   },
 }); 
