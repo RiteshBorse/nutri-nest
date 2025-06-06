@@ -1,16 +1,38 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { Link } from 'expo-router';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import { Link, router } from 'expo-router';
 import { useState } from 'react';
+import { supabase } from '../../lib/supabaseClient';
 
 export default function SignupScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = () => {
-    // TODO: Implement signup logic
-    console.log('Signup:', { name, email, password, confirmPassword });
+  const handleSignup = async () => {
+    if (!name || !email || !password || !confirmPassword) {
+      Alert.alert('Error', 'Please fill in all fields.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
+      if (error) {
+        Alert.alert('Signup Failed', error.message);
+      } else {
+        Alert.alert('Success', 'Account created! Please check your email to verify your account.');
+        router.replace('/login');
+      }
+    } catch (err) {
+      Alert.alert('Signup Failed', 'An unexpected error occurred.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,7 +47,6 @@ export default function SignupScreen() {
           value={name}
           onChangeText={setName}
         />
-
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -34,7 +55,6 @@ export default function SignupScreen() {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -42,7 +62,6 @@ export default function SignupScreen() {
           onChangeText={setPassword}
           secureTextEntry
         />
-
         <TextInput
           style={styles.input}
           placeholder="Confirm Password"
@@ -50,11 +69,9 @@ export default function SignupScreen() {
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-
-        <TouchableOpacity style={styles.button} onPress={handleSignup}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignup} disabled={loading}>
+          <Text style={styles.buttonText}>{loading ? 'Signing up...' : 'Sign Up'}</Text>
         </TouchableOpacity>
-
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already have an account? </Text>
           <Link href="/login" style={styles.link}>

@@ -1,21 +1,26 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
+import { supabase } from '../../lib/supabaseClient';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    if (email === 'sakshi@gmail.com' && password === 'sakshi123') {
-      // Navigate directly to the meals tab
-      router.replace('/(tabs)/meals');
-    } else {
-      Alert.alert(
-        'Login Failed',
-        'Invalid email or password. Please try again.',
-        [{ text: 'OK' }]
-      );
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        Alert.alert('Login Failed', error.message);
+      } else {
+        router.replace('/(tabs)/meals');
+      }
+    } catch (err) {
+      Alert.alert('Login Failed', 'An unexpected error occurred.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,8 +47,8 @@ export default function LoginScreen() {
           secureTextEntry
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+          <Text style={styles.buttonText}>{loading ? 'Logging in...' : 'Login'}</Text>
         </TouchableOpacity>
 
         <View style={styles.footer}>
