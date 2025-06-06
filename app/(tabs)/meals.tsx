@@ -1,7 +1,8 @@
-import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import mealsData from '../data/meals.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Meal = {
   id: string;
@@ -43,10 +44,37 @@ type GeneratedMealPlan = {
   }>;
 };
 
+type SavedMeal = {
+  id: string;
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  image: string;
+  date: string;
+};
+
 export default function MealsScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [generatedPlan, setGeneratedPlan] = useState<GeneratedMealPlan | null>(null);
+  const [savedMeals, setSavedMeals] = useState<SavedMeal[]>([]);
   const params = useLocalSearchParams();
+
+  useEffect(() => {
+    loadSavedMeals();
+  }, []);
+
+  const loadSavedMeals = async () => {
+    try {
+      const meals = await AsyncStorage.getItem('savedMeals');
+      if (meals) {
+        setSavedMeals(JSON.parse(meals));
+      }
+    } catch (error) {
+      console.error('Failed to load saved meals:', error);
+    }
+  };
 
   useEffect(() => {
     if (params.mealPlan) {
@@ -57,7 +85,6 @@ export default function MealsScreen() {
           throw new Error('No meal plan data found in API response');
         }
 
-        // Clean up the response text by removing markdown formatting
         const cleanedText = mealPlanText
           .replace(/```json\n?/g, '')
           .replace(/```\n?/g, '')
@@ -70,6 +97,41 @@ export default function MealsScreen() {
       }
     }
   }, [params.mealPlan]);
+
+  const handleSaveMeal = async (meal: any) => {
+    try {
+      // Check if meal is already saved
+      const isAlreadySaved = savedMeals.some(savedMeal => 
+        savedMeal.name === meal.name && 
+        savedMeal.calories === meal.calories
+      );
+
+      if (isAlreadySaved) {
+        Alert.alert('Already Saved', 'This meal is already in your saved meals.');
+        return;
+      }
+
+      const newMeal: SavedMeal = {
+        id: Date.now().toString(),
+        name: meal.name,
+        calories: meal.calories,
+        protein: meal.protein,
+        carbs: meal.carbs,
+        fats: meal.fats,
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      const updatedMeals = [...savedMeals, newMeal];
+      await AsyncStorage.setItem('savedMeals', JSON.stringify(updatedMeals));
+      setSavedMeals(updatedMeals);
+      
+      Alert.alert('Success', 'Meal saved successfully!');
+    } catch (error) {
+      console.error('Failed to save meal:', error);
+      Alert.alert('Error', 'Failed to save meal. Please try again.');
+    }
+  };
 
   const categories = ['All', 'Breakfast', 'Lunch', 'Dinner'];
   
@@ -87,62 +149,85 @@ export default function MealsScreen() {
   if (generatedPlan) {
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.summaryContainer}>
-          <Text style={styles.title}>Your Personalized Meal Plan</Text>
-          <View style={styles.dailySummary}>
-            <Text style={styles.dailyCalories}>{generatedPlan.dailyCalories} calories</Text>
-            <View style={styles.macrosContainer}>
-              <MacroNutrient label="Protein" value={generatedPlan.macros.protein} color="#2E7D32" />
-              <MacroNutrient label="Carbs" value={generatedPlan.macros.carbs} color="#1976D2" />
-              <MacroNutrient label="Fats" value={generatedPlan.macros.fats} color="#D32F2F" />
-            </View>
-          </View>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Your Meal Plan</Text>
+          <Text style={styles.headerSubtitle}>Personalized nutrition for your goals</Text>
         </View>
 
-        {generatedPlan.meals.map((meal, index) => (
-          <View key={index} style={styles.mealCard}>
-            <View style={styles.mealInfo}>
-              <View style={styles.mealHeader}>
-                <Text style={styles.mealName}>{meal.name}</Text>
-                <Text style={styles.mealCategory}>{meal.type}</Text>
-              </View>
-              
+        <View style={styles.contentContainer}>
+          <View style={styles.summaryContainer}>
+            <Text style={styles.title}>Your Personalized Meal Plan</Text>
+            <View style={styles.dailySummary}>
+              <Text style={styles.dailyCalories}>{generatedPlan.dailyCalories} calories</Text>
               <View style={styles.macrosContainer}>
-                <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
-                <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
-                <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
+                <MacroNutrient label="Protein" value={generatedPlan.macros.protein} color="#2E7D32" />
+                <MacroNutrient label="Carbs" value={generatedPlan.macros.carbs} color="#1976D2" />
+                <MacroNutrient label="Fats" value={generatedPlan.macros.fats} color="#D32F2F" />
               </View>
-
-              <View style={styles.ingredientsContainer}>
-                <Text style={styles.sectionTitle}>Ingredients:</Text>
-                {meal.ingredients.map((ingredient, idx) => (
-                  <Text key={idx} style={styles.ingredient}>• {ingredient}</Text>
-                ))}
-              </View>
-
-              <View style={styles.instructionsContainer}>
-                <Text style={styles.sectionTitle}>Instructions:</Text>
-                <Text style={styles.instructions}>{meal.instructions}</Text>
-              </View>
-
-              <Text style={styles.calories}>{meal.calories} calories</Text>
             </View>
           </View>
-        ))}
 
-        <View style={styles.snacksContainer}>
-          <Text style={styles.sectionTitle}>Recommended Snacks:</Text>
-          {generatedPlan.snacks.map((snack, index) => (
-            <View key={index} style={styles.snackCard}>
-              <Text style={styles.snackName}>{snack.name}</Text>
-              <View style={styles.macrosContainer}>
-                <MacroNutrient label="Protein" value={snack.protein} color="#2E7D32" />
-                <MacroNutrient label="Carbs" value={snack.carbs} color="#1976D2" />
-                <MacroNutrient label="Fats" value={snack.fats} color="#D32F2F" />
+          {generatedPlan.meals.map((meal, index) => (
+            <View key={index} style={styles.mealCard}>
+              <View style={styles.mealInfo}>
+                <View style={styles.mealHeader}>
+                  <Text style={styles.mealName}>{meal.name}</Text>
+                  <Text style={styles.mealCategory}>{meal.type}</Text>
+                </View>
+                
+                <View style={styles.macrosContainer}>
+                  <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
+                  <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
+                  <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
+                </View>
+
+                <View style={styles.ingredientsContainer}>
+                  <Text style={styles.sectionTitle}>Ingredients:</Text>
+                  {meal.ingredients.map((ingredient, idx) => (
+                    <Text key={idx} style={styles.ingredient}>• {ingredient}</Text>
+                  ))}
+                </View>
+
+                <View style={styles.instructionsContainer}>
+                  <Text style={styles.sectionTitle}>Instructions:</Text>
+                  <Text style={styles.instructions}>{meal.instructions}</Text>
+                </View>
+
+                <View style={styles.mealFooter}>
+                  <Text style={styles.calories}>{meal.calories} calories</Text>
+                  <TouchableOpacity 
+                    style={styles.saveButton}
+                    onPress={() => handleSaveMeal(meal)}
+                  >
+                    <Text style={styles.saveButtonText}>Save Meal</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <Text style={styles.calories}>{snack.calories} calories</Text>
             </View>
           ))}
+
+          <View style={styles.snacksContainer}>
+            <Text style={styles.sectionTitle}>Recommended Snacks:</Text>
+            {generatedPlan.snacks.map((snack, index) => (
+              <View key={index} style={styles.snackCard}>
+                <Text style={styles.snackName}>{snack.name}</Text>
+                <View style={styles.macrosContainer}>
+                  <MacroNutrient label="Protein" value={snack.protein} color="#2E7D32" />
+                  <MacroNutrient label="Carbs" value={snack.carbs} color="#1976D2" />
+                  <MacroNutrient label="Fats" value={snack.fats} color="#D32F2F" />
+                </View>
+                <View style={styles.mealFooter}>
+                  <Text style={styles.calories}>{snack.calories} calories</Text>
+                  <TouchableOpacity 
+                    style={styles.saveButton}
+                    onPress={() => handleSaveMeal(snack)}
+                  >
+                    <Text style={styles.saveButtonText}>Save Snack</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+          </View>
         </View>
       </ScrollView>
     );
@@ -150,61 +235,66 @@ export default function MealsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Meal Plans</Text>
-      
-      <ScrollView 
-        horizontal 
-        showsHorizontalScrollIndicator={false}
-        style={styles.categoriesContainer}
-      >
-        {categories.map((category) => (
-          <TouchableOpacity
-            key={category}
-            style={[
-              styles.categoryButton,
-              selectedCategory === category && styles.selectedCategory
-            ]}
-            onPress={() => setSelectedCategory(category)}
-          >
-            <Text style={[
-              styles.categoryText,
-              selectedCategory === category && styles.selectedCategoryText
-            ]}>
-              {category}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Meal Plans</Text>
+        <Text style={styles.headerSubtitle}>Discover and save your favorite meals</Text>
+      </View>
 
-      <ScrollView style={styles.mealsContainer}>
-        {filteredMeals.map((meal: Meal) => (
-          <View key={meal.id} style={styles.mealCard}>
-            <Image
-              source={{ uri: meal.image }}
-              style={styles.mealImage}
-            />
-            <View style={styles.mealInfo}>
-              <View style={styles.mealHeader}>
-                <Text style={styles.mealName}>{meal.name}</Text>
-                <Text style={styles.mealCategory}>{meal.category}</Text>
-              </View>
-              
-              <Text style={styles.mealDescription}>{meal.description}</Text>
-              
-              <View style={styles.macrosContainer}>
-                <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
-                <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
-                <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
-              </View>
+      <View style={styles.contentContainer}>
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          style={styles.categoriesContainer}
+        >
+          {categories.map((category) => (
+            <TouchableOpacity
+              key={category}
+              style={[
+                styles.categoryButton,
+                selectedCategory === category && styles.selectedCategory
+              ]}
+              onPress={() => setSelectedCategory(category)}
+            >
+              <Text style={[
+                styles.categoryText,
+                selectedCategory === category && styles.selectedCategoryText
+              ]}>
+                {category}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
 
-              <View style={styles.mealFooter}>
-                <Text style={styles.calories}>{meal.calories} calories</Text>
-                <Text style={styles.prepTime}>{meal.prepTime}</Text>
+        <ScrollView style={styles.mealsContainer}>
+          {filteredMeals.map((meal: Meal) => (
+            <View key={meal.id} style={styles.mealCard}>
+              <Image
+                source={{ uri: meal.image }}
+                style={styles.mealImage}
+              />
+              <View style={styles.mealInfo}>
+                <View style={styles.mealHeader}>
+                  <Text style={styles.mealName}>{meal.name}</Text>
+                  <Text style={styles.mealCategory}>{meal.category}</Text>
+                </View>
+                
+                <Text style={styles.mealDescription}>{meal.description}</Text>
+                
+                <View style={styles.macrosContainer}>
+                  <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
+                  <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
+                  <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
+                </View>
+
+                <View style={styles.mealFooter}>
+                  <Text style={styles.calories}>{meal.calories} calories</Text>
+                  <Text style={styles.prepTime}>{meal.prepTime}</Text>
+                </View>
               </View>
             </View>
-          </View>
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 }
@@ -213,6 +303,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  header: {
+    backgroundColor: '#2E7D32',
+    padding: 20,
+    paddingTop: 40,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 8,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#fff',
+    opacity: 0.8,
+  },
+  contentContainer: {
+    flex: 1,
     padding: 16,
   },
   title: {
@@ -326,6 +435,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 10,
   },
   calories: {
     fontSize: 16,
@@ -372,6 +482,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
     marginBottom: 8,
+  },
+  saveButton: {
+    backgroundColor: '#2E7D32',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  saveButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
   },
 }); 
  

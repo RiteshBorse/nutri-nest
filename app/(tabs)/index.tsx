@@ -119,114 +119,118 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Generate Your Meal Plan</Text>
-      <Text style={styles.subtitle}>Let AI create a personalized nutrition plan for you</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>NutriNest AI</Text>
+        <Text style={styles.headerSubtitle}>Your personal nutrition assistant</Text>
+      </View>
 
-      <View style={styles.form}>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Goal</Text>
-          <View style={styles.goalButtons}>
-            {(['gain', 'loss', 'maintain'] as const).map((goal) => (
-              <TouchableOpacity
-                key={goal}
-                style={[
-                  styles.goalButton,
-                  preferences.goal === goal && styles.selectedGoal
-                ]}
-                onPress={() => setPreferences({ ...preferences, goal })}
-              >
-                <Text style={[
-                  styles.goalButtonText,
-                  preferences.goal === goal && styles.selectedGoalText
-                ]}>
-                  {goal.charAt(0).toUpperCase() + goal.slice(1)}
-                </Text>
-              </TouchableOpacity>
-            ))}
+      <View style={styles.contentContainer}>
+        <View style={styles.form}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Goal</Text>
+            <View style={styles.goalButtons}>
+              {(['gain', 'loss', 'maintain'] as const).map((goal) => (
+                <TouchableOpacity
+                  key={goal}
+                  style={[
+                    styles.goalButton,
+                    preferences.goal === goal && styles.selectedGoal
+                  ]}
+                  onPress={() => setPreferences({ ...preferences, goal })}
+                >
+                  <Text style={[
+                    styles.goalButtonText,
+                    preferences.goal === goal && styles.selectedGoalText
+                  ]}>
+                    {goal.charAt(0).toUpperCase() + goal.slice(1)}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
-        </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Weight (kg)</Text>
-          <TextInput
-            style={styles.input}
-            value={preferences.weight}
-            onChangeText={(text) => setPreferences({ ...preferences, weight: text })}
-            keyboardType="numeric"
-            placeholder="Enter your weight"
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Height (cm)</Text>
-          <TextInput
-            style={styles.input}
-            value={preferences.height}
-            onChangeText={(text) => setPreferences({ ...preferences, height: text })}
-            keyboardType="numeric"
-            placeholder="Enter your height"
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Age</Text>
-          <TextInput
-            style={styles.input}
-            value={preferences.age}
-            onChangeText={(text) => setPreferences({ ...preferences, age: text })}
-            keyboardType="numeric"
-            placeholder="Enter your age"
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Activity Level</Text>
-          <View style={styles.activityButtons}>
-            {(['sedentary', 'light', 'moderate', 'active', 'very_active'] as const).map((level) => (
-              <TouchableOpacity
-                key={level}
-                style={[
-                  styles.activityButton,
-                  preferences.activityLevel === level && styles.selectedActivity
-                ]}
-                onPress={() => setPreferences({ ...preferences, activityLevel: level })}
-              >
-                <Text style={[
-                  styles.activityButtonText,
-                  preferences.activityLevel === level && styles.selectedActivityText
-                ]}>
-                  {level.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                </Text>
-              </TouchableOpacity>
-            ))}
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Weight (kg)</Text>
+            <TextInput
+              style={styles.input}
+              value={preferences.weight}
+              onChangeText={(text) => setPreferences({ ...preferences, weight: text })}
+              keyboardType="numeric"
+              placeholder="Enter your weight"
+            />
           </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Height (cm)</Text>
+            <TextInput
+              style={styles.input}
+              value={preferences.height}
+              onChangeText={(text) => setPreferences({ ...preferences, height: text })}
+              keyboardType="numeric"
+              placeholder="Enter your height"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Age</Text>
+            <TextInput
+              style={styles.input}
+              value={preferences.age}
+              onChangeText={(text) => setPreferences({ ...preferences, age: text })}
+              keyboardType="numeric"
+              placeholder="Enter your age"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Activity Level</Text>
+            <View style={styles.activityButtons}>
+              {(['sedentary', 'light', 'moderate', 'active', 'very_active'] as const).map((level) => (
+                <TouchableOpacity
+                  key={level}
+                  style={[
+                    styles.activityButton,
+                    preferences.activityLevel === level && styles.selectedActivity
+                  ]}
+                  onPress={() => setPreferences({ ...preferences, activityLevel: level })}
+                >
+                  <Text style={[
+                    styles.activityButtonText,
+                    preferences.activityLevel === level && styles.selectedActivityText
+                  ]}>
+                    {level.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Dietary Restrictions (optional)</Text>
+            <TextInput
+              style={[styles.input, styles.textArea]}
+              value={preferences.dietaryRestrictions}
+              onChangeText={(text) => setPreferences({ ...preferences, dietaryRestrictions: text })}
+              placeholder="e.g., vegetarian, gluten-free, etc."
+              multiline
+              numberOfLines={3}
+            />
+          </View>
+
+          {error ? <Text style={styles.error}>{error}</Text> : null}
+
+          <TouchableOpacity
+            style={styles.generateButton}
+            onPress={handleGenerateMealPlan}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.generateButtonText}>Generate Meal Plan</Text>
+            )}
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Dietary Restrictions (optional)</Text>
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            value={preferences.dietaryRestrictions}
-            onChangeText={(text) => setPreferences({ ...preferences, dietaryRestrictions: text })}
-            placeholder="e.g., vegetarian, gluten-free, etc."
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-
-        <TouchableOpacity
-          style={styles.generateButton}
-          onPress={handleGenerateMealPlan}
-          disabled={loading}
-        >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.generateButtonText}>Generate Meal Plan</Text>
-          )}
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -236,18 +240,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 16,
   },
-  title: {
+  header: {
+    backgroundColor: '#2E7D32',
+    padding: 20,
+    paddingTop: 40,
+  },
+  headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#2E7D32',
+    color: '#fff',
     marginBottom: 8,
   },
-  subtitle: {
+  headerSubtitle: {
     fontSize: 16,
-    color: '#666',
-    marginBottom: 24,
+    color: '#fff',
+    opacity: 0.8,
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 16,
   },
   form: {
     gap: 20,

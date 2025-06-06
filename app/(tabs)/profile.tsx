@@ -1,6 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, RefreshControl, Alert } from 'react-native';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
 
 type SavedMeal = {
   id: string;
@@ -14,31 +16,65 @@ type SavedMeal = {
 };
 
 export default function ProfileScreen() {
-  const [savedMeals] = useState<SavedMeal[]>([
-    {
-      id: '1',
-      name: 'Grilled Chicken Salad',
-      calories: 450,
-      protein: 35,
-      carbs: 25,
-      fats: 20,
-      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
-      date: '2024-03-20'
-    },
-    {
-      id: '2',
-      name: 'Quinoa Bowl',
-      calories: 380,
-      protein: 15,
-      carbs: 45,
-      fats: 12,
-      image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd',
-      date: '2024-03-19'
-    }
-  ]);
+  const [savedMeals, setSavedMeals] = useState<SavedMeal[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const handleLogout = () => {
-    router.replace('/(auth)/login');
+  const loadSavedMeals = async () => {
+    try {
+      const meals = await AsyncStorage.getItem('savedMeals');
+      if (meals) {
+        const parsedMeals = JSON.parse(meals);
+        setSavedMeals(parsedMeals);
+      }
+    } catch (error) {
+      console.error('Failed to load saved meals:', error);
+    }
+  };
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await loadSavedMeals();
+    setRefreshing(false);
+  }, []);
+
+  useEffect(() => {
+    loadSavedMeals();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.clear();
+      router.replace('/(auth)/login');
+    } catch (error) {
+      console.error('Failed to clear storage:', error);
+    }
+  };
+
+  const handleRemoveMeal = async (mealId: string) => {
+    Alert.alert(
+      'Remove Meal',
+      'Are you sure you want to remove this meal?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const updatedMeals = savedMeals.filter(meal => meal.id !== mealId);
+              await AsyncStorage.setItem('savedMeals', JSON.stringify(updatedMeals));
+              setSavedMeals(updatedMeals);
+            } catch (error) {
+              console.error('Failed to remove meal:', error);
+              Alert.alert('Error', 'Failed to remove meal. Please try again.');
+            }
+          },
+        },
+      ],
+    );
   };
 
   const MacroNutrient = ({ label, value, color }: { label: string; value: number; color: string }) => (
@@ -49,7 +85,12 @@ export default function ProfileScreen() {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView 
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <View style={styles.header}>
         <View style={styles.profileInfo}>
           <View style={styles.avatarContainer}>
@@ -64,7 +105,7 @@ export default function ProfileScreen() {
 
       <View style={styles.statsContainer}>
         <View style={styles.statCard}>
-          <Text style={styles.statValue}>12</Text>
+          <Text style={styles.statValue}>{savedMeals.length}</Text>
           <Text style={styles.statLabel}>Saved Meals</Text>
         </View>
         <View style={styles.statCard}>
@@ -79,21 +120,33 @@ export default function ProfileScreen() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Saved Meals</Text>
-        {savedMeals.map((meal) => (
-          <TouchableOpacity key={meal.id} style={styles.mealCard}>
-            <Image source={{ uri: meal.image }} style={styles.mealImage} />
-            <View style={styles.mealInfo}>
-              <Text style={styles.mealName}>{meal.name}</Text>
-              <Text style={styles.mealDate}>{meal.date}</Text>
-              <View style={styles.macrosContainer}>
-                <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
-                <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
-                <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
+        {savedMeals.length === 0 ? (
+          <Text style={styles.emptyText}>No saved meals yet. Generate and save meals from your meal plans!</Text>
+        ) : (
+          savedMeals.map((meal) => (
+            <TouchableOpacity key={meal.id} style={styles.mealCard}>
+              <Image source={{ uri: meal.image }} style={styles.mealImage} />
+              <View style={styles.mealInfo}>
+                <View style={styles.mealHeader}>
+                  <Text style={styles.mealName}>{meal.name}</Text>
+                  <TouchableOpacity 
+                    style={styles.removeButton}
+                    onPress={() => handleRemoveMeal(meal.id)}
+                  >
+                    <Ionicons name="trash-outline" size={24} color="#D32F2F" />
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.mealDate}>{meal.date}</Text>
+                <View style={styles.macrosContainer}>
+                  <MacroNutrient label="Protein" value={meal.protein} color="#2E7D32" />
+                  <MacroNutrient label="Carbs" value={meal.carbs} color="#1976D2" />
+                  <MacroNutrient label="Fats" value={meal.fats} color="#D32F2F" />
+                </View>
+                <Text style={styles.calories}>{meal.calories} calories</Text>
               </View>
-              <Text style={styles.calories}>{meal.calories} calories</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+            </TouchableOpacity>
+          ))
+        )}
       </View>
 
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -199,16 +252,20 @@ const styles = StyleSheet.create({
   mealInfo: {
     padding: 15,
   },
+  mealHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
   mealName: {
     fontSize: 18,
     fontWeight: '600',
     color: '#333',
-    marginBottom: 4,
   },
   mealDate: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 10,
   },
   macrosContainer: {
     flexDirection: 'row',
@@ -246,5 +303,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 20,
+    fontStyle: 'italic',
+  },
+  removeButton: {
+    padding: 8,
   },
 }); 
