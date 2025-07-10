@@ -1,50 +1,129 @@
-# Welcome to your Expo app 👋
+# NutriNest AI – Personalized Meal Planner 🍽️
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+NutriNest AI is a cross-platform mobile app built with [Expo](https://expo.dev) and React Native. It helps you generate personalized meal plans using AI, track your nutrition, and stay motivated on your health journey.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Project Overview
 
+- **Personalized AI Meal Plans:** Get daily meal plans tailored to your goals, dietary needs, and preferences using Google Gemini AI.
+- **Meal Planner & Calendar:** Plan and track your meals, save favorites, and visualize your nutrition streak.
+- **Health Tips & Facts:** Explore daily health facts and actionable wellness tips.
+- **User Authentication:** Secure sign up and login with Supabase.
+
+---
+
+## ✨ Features
+
+- **AI-Powered Meal Plan Generation**
+  - Input your goal, weight, height, age, activity level, and dietary restrictions.
+  - Instantly receive a detailed meal plan (calories, macros, recipes, snacks).
+- **Meal Planner Calendar**
+  - Visualize your meal plans on a calendar.
+  - Save meals for each day and track your streak.
+- **Explore Section**
+  - Browse health facts and everyday wellness tips.
+- **Profile & Stats**
+  - View saved meals, meal plans, and streaks.
+- **Modern UI/UX**
+  - Clean, responsive design with theming and haptics.
+
+---
+
+## 📱 Screenshots
+
+> _Add screenshots or GIFs of the app here._
+
+---
+
+## 🛠️ Getting Started
+
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd meal-planner
+   ```
+2. **Install dependencies:**
    ```bash
    npm install
    ```
-
-2. Start the app
-
+3. **Start the app:**
    ```bash
    npx expo start
    ```
+   - Open in Expo Go, iOS Simulator, or Android Emulator.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## ⚙️ Configuration
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Supabase:**
+  - The Supabase URL and anon key are currently hardcoded in `lib/supabaseClient.ts`.
+- **Google Gemini API:**
+  - The Gemini API key for meal plan generation is hardcoded in `app/(tabs)/index.tsx`.
 
-## Get a fresh project
+> **Security Note:**
+> For production, move all API keys to environment variables and use a `.env` file. See [Expo environment variables](https://docs.expo.dev/guides/environment-variables/) for setup.
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
+## 📂 Folder Structure
+
+```
+meal-planner/
+  app/              # App screens and routes (file-based routing)
+    (auth)/         # Authentication screens (login, signup)
+    (tabs)/         # Main app tabs (home, meals, planner, profile, explore)
+    data/           # Static data (e.g., meals.json)
+    +not-found.tsx  # 404 screen
+  components/       # Reusable UI components
+  constants/        # Theme and color constants
+  hooks/            # Custom React hooks
+  lib/              # Supabase client setup
+  assets/           # Fonts and images
+  scripts/          # Utility scripts (e.g., reset-project.js)
+  ...
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🔑 Scripts
 
-To learn more about developing your project with Expo, look at the following resources:
+- `npm start` – Start Expo development server
+- `npm run reset-project` – Reset to a blank starter app
+- `npm run android` / `npm run ios` / `npm run web` – Run on specific platforms
+- `npm run lint` – Lint the codebase
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## 🧩 Tech Stack
 
-Join our community of developers creating universal apps.
+- [Expo](https://expo.dev/) + [React Native](https://reactnative.dev/)
+- [Supabase](https://supabase.com/) (auth)
+- [Google Gemini API](https://ai.google.dev/) (AI meal plan generation)
+- [React Navigation](https://reactnavigation.org/)
+- [AsyncStorage](https://react-native-async-storage.github.io/async-storage/) (local storage)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 🤝 Contributing
+
+1. Fork the repo and create your branch.
+2. Move API keys to environment variables for security.
+3. Submit a pull request with a clear description.
+
+---
+
+## 📢 License
+
+MIT
+
+---
+
+## �� Acknowledgements
+
+- [Expo](https://expo.dev/), [Supabase](https://supabase.com/), [Google Gemini](https://ai.google.dev/), and the open-source community.
+
+---
+
+> _Built with ❤️ by Sakshi and contributors._
